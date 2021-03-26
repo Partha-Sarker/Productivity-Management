@@ -8,16 +8,16 @@ import java.util.List;
 public class ConsumableModel {
     private List<Consumable> bookList = new ArrayList<>();
     private List<Consumable> seriesList = new ArrayList<>();
-    private List<Consumable> moviesList = new ArrayList<>();
+    private List<Consumable> movieList = new ArrayList<>();
 
     public ConsumableModel() {
         try {
             bookList.add(new Book("book1", null, null, null, 0));
             bookList.add(new Book("book2", null, null, null, 0));
             bookList.add(new Book("book3", null, null, null, 0));
-            moviesList.add(new Movie("movie1", null, null, null, 0));
-            moviesList.add(new Movie("movie2", null, null, null, 0));
-            moviesList.add(new Movie("movie3", null, null, null, 0));
+            movieList.add(new Movie("movie1", null, null, null, 0));
+            movieList.add(new Movie("movie2", null, null, null, 0));
+            movieList.add(new Movie("movie3", null, null, null, 0));
             seriesList.add(new Series("series1", null, null, null, 0));
             seriesList.add(new Series("series2", null, null, null, 0));
             seriesList.add(new Series("series3", null, null, null, 0));
@@ -32,8 +32,8 @@ public class ConsumableModel {
         return seriesList;
     }
 
-    public List<Consumable> getMoviesList() {
-        return moviesList;
+    public List<Consumable> getMovieList() {
+        return movieList;
     }
 
     public void createBook(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
@@ -45,18 +45,18 @@ public class ConsumableModel {
     }
 
     public void createMovie(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
-        moviesList.add(new Movie(name, rating, startingDate, endingDate, consumptionTimeInHours));
+        movieList.add(new Movie(name, rating, startingDate, endingDate, consumptionTimeInHours));
     }
 
-    public void setBookRating(int index, float rating) {
-        bookList.get(index).setRating(rating);
+    public void deleteBook(int index) {
+        bookList.remove(index);
     }
 
-    public void setMovieRating(int index, float rating) {
-        moviesList.get(index).setRating(rating);
+    public void deleteMovie(int index) {
+        movieList.remove(index);
     }
 
-    public void setSeriesRating(int index, float rating) {
-        seriesList.get(index).setRating(rating);
+    public void deleteSeries(int index) {
+        seriesList.remove(index);
     }
 }

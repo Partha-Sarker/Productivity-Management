@@ -16,6 +16,7 @@ public abstract class Consumable {
     private Float rating;
     private Date startingDate, endingDate;
     private double consumptionTimeInHours = 0;
+    int consumptionDays = 0;
 
     public Consumable(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) {
         this.name = name;
@@ -33,18 +34,14 @@ public abstract class Consumable {
         this.rating = rating;
     }
 
-//    private void setStartingDate(String startingDate) throws ParseException{
-//        if (isEnded())
-//            throw new ConsumableEndedException();
-//        if (startingDate == null || startingDate.equals(""))
-//            return;
-//        this.startingDate = new SimpleDateFormat("YYYY-MM-DD").parse(startingDate);
-//    }
-
     public void setEndingDate(Date endingDate) {
         if (endingDate == null)
             return;
         this.endingDate = endingDate;
+    }
+
+    public int getConsumptionDays() {
+        return consumptionDays;
     }
 
     public void addConsumptionTimeInHours(double hour) {

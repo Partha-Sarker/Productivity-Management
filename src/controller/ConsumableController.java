@@ -15,6 +15,7 @@ public class ConsumableController {
     private InputState currentState, homeState;
     private InputState creatingState, createStateName, createStateRating, createStateStartingDate, createStateEndingDate, createStateConsumptionTime;
     private InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
+    private InputState deleteState, deleteListState;
 
     private String name;
     private Date startingDate, endingDate;
@@ -43,6 +44,8 @@ public class ConsumableController {
         editStateTime = new EditStateTime(this);
         editStateTimeDate = new EditStateTimeDate(this);
         editStateEndingDate = new EditStateEndingDate(this);
+        deleteState = new DeleteState(this);
+        deleteListState = new DeleteListState(this);
         currentState = homeState;
     }
 
@@ -61,7 +64,7 @@ public class ConsumableController {
         if (currentConsumableTypeIndex == BOOK)
             return model.getBookList();
         if (currentConsumableTypeIndex == MOVIE)
-            return model.getMoviesList();
+            return model.getMovieList();
         return model.getSeriesList();
     }
 
@@ -121,11 +124,24 @@ public class ConsumableController {
         return editStateTimeDate;
     }
 
+    public InputState getDeleteState() {
+        return deleteState;
+    }
+
+    public InputState getDeleteListState() {
+        return deleteListState;
+    }
+
+
 
 
     public void setCurrentState(InputState currentState) {
         this.currentState = currentState;
     }
+
+
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -151,13 +167,9 @@ public class ConsumableController {
         this.currentConsumableTypeIndex = currentConsumableTypeIndex;
     }
 
-//    public void setCurrentConsumableIndexInList(int currentConsumableIndexInList) {
-//        this.currentConsumableIndexInList = currentConsumableIndexInList;
-//    }
-
     public void setCurrentConsumable(int index) {
         if (currentConsumableTypeIndex == MOVIE) {
-            currentConsumable = model.getMoviesList().get(index);
+            currentConsumable = model.getMovieList().get(index);
         }
         else if (currentConsumableTypeIndex == BOOK) {
             currentConsumable = model.getBookList().get(index);
@@ -166,6 +178,8 @@ public class ConsumableController {
             currentConsumable = model.getSeriesList().get(index);
         }
     }
+
+
 
     public void setConsumableRating(Float rating) {
         currentConsumable.setRating(rating);
@@ -202,6 +216,26 @@ public class ConsumableController {
         }
         printer.displayNewLine();
         printer.displayTextWithNewLine(consumableType + " created successfully");
+        printer.displayNewLine();
+    }
+
+    public void deleteConsumable(int index) {
+        String consumableType = "";
+        if (currentConsumableTypeIndex == BOOK) {
+            model.deleteBook(index);
+            consumableType = "Book";
+        }
+        else if (currentConsumableTypeIndex == MOVIE) {
+            model.deleteMovie(index);
+            consumableType = "Movie";
+        }
+        else if (currentConsumableTypeIndex == SERIES) {
+            model.deleteSeries(index);
+            consumableType = "Series";
+        }
+        printer.displayNewLine();
+        printer.displayTextWithNewLine(consumableType + " deleted successfully");
+        printer.displayNewLine();
     }
 
     public static void main(String[] args) {
@@ -242,6 +276,7 @@ public class ConsumableController {
                 printer.addGap();
 
             if (input.equals("home")) {
+                printer.displayNewLine();
                 currentState = homeState;
                 continue;
             }

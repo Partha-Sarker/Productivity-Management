@@ -20,8 +20,10 @@ public class Series extends Consumable {
             return;
 
         Double prevTime = consumptionMap.get(day);
-        if (prevTime == null)
+        if (prevTime == null) {
+            consumptionDays++;
             consumptionMap.put(day, prevTime);
+        }
         else
             consumptionMap.put(day, prevTime + hour);
     }

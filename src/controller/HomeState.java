@@ -39,6 +39,9 @@ public class HomeState implements InputState{
             case 2:
                 controller.setCurrentState(controller.getEditState());
                 break;
+            case 3:
+                controller.setCurrentState(controller.getDeleteState());
+                break;
         }
     }
 
