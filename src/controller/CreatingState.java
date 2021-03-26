@@ -28,15 +28,25 @@ public class CreatingState implements InputState {
 
     @Override
     public void processInput(String input) {
+        if (input.equals("back")) {
+            goBack();
+            return;
+        }
+        int command;
+        try {
+            command = Integer.parseInt(input);
+        } catch (Exception e) { return;}
 
-        int command = Integer.parseInt(input);
+        if (command > 3)
+            return;
+
         controller.setCurrentConsumableTypeIndex(command);
         controller.setCurrentState(controller.getCreateStateName());
     }
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getHomeState());
     }
 
     @Override

@@ -1,20 +1,23 @@
 package model;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Movie extends Consumable {
-    private static double totalConsumptionInHour = 0;
-    private static Map<Date, Double> consumptionMap = new HashMap<>();
+    static double totalConsumptionInHour = 0;
+    static Map<Date, Double> consumptionMap = new HashMap<>();
 
-    public Movie(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
+    public Movie(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException, ConsumableEndedException, NegativeValueException {
         super(name, rating, startingDate, endingDate, consumptionTimeInHours);
     }
 
     @Override
-    public void addConsumptionTimeInHoursWithDay(double hour, Date day) {
+    public void addConsumptionTimeInHoursWithDay(double hour, Date day) throws NegativeValueException, ConsumableEndedException {
         addConsumptionTimeInHours(hour);
         if (day == null)
             return;
@@ -33,10 +36,6 @@ public class Movie extends Consumable {
         totalConsumptionInHour += hour;
     }
 
-    @Override
-    public double getTotalConsumptionTimeInHours() {
-        return totalConsumptionInHour;
-    }
 
     @Override
     public String toString() {

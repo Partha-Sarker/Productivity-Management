@@ -1,5 +1,8 @@
 package controller;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+import customexceptions.ValueBoundException;
 import model.Consumable;
 import model.ConsumableModel;
 import view.ConsolePrinter;
@@ -16,6 +19,7 @@ public class ConsumableController {
     private InputState creatingState, createStateName, createStateRating, createStateStartingDate, createStateEndingDate, createStateConsumptionTime;
     private InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
     private InputState deleteState, deleteListState;
+    private InputState viewingState, viewingListState, viewingConsumableState;
 
     private String name;
     private Date startingDate, endingDate;
@@ -46,9 +50,19 @@ public class ConsumableController {
         editStateEndingDate = new EditStateEndingDate(this);
         deleteState = new DeleteState(this);
         deleteListState = new DeleteListState(this);
+        viewingState = new ViewingState(this);
+        viewingListState = new ViewingListState(this);
+        viewingConsumableState = new ViewingConsumableState(this);
         currentState = homeState;
     }
 
+    public ConsolePrinter getPrinter() {
+        return printer;
+    }
+
+    public ConsumableModel getModel() {
+        return model;
+    }
 
     public String getConsumableType() {
         if (currentConsumableTypeIndex == 1)
@@ -58,6 +72,10 @@ public class ConsumableController {
         if (currentConsumableTypeIndex == 3)
             return "Series";
         return "garbage";
+    }
+
+    public Consumable getCurrentConsumable() {
+        return currentConsumable;
     }
 
     public List<Consumable> getConsumableList() {
@@ -132,14 +150,22 @@ public class ConsumableController {
         return deleteListState;
     }
 
+    public InputState getViewingState() {
+        return viewingState;
+    }
 
+    public InputState getViewingListState() {
+        return viewingListState;
+    }
 
+    public InputState getViewingConsumableState() {
+        return viewingConsumableState;
+    }
 
+    // separator
     public void setCurrentState(InputState currentState) {
         this.currentState = currentState;
     }
-
-
 
 
 
@@ -181,7 +207,7 @@ public class ConsumableController {
 
 
 
-    public void setConsumableRating(Float rating) {
+    public void setConsumableRating(Float rating) throws ValueBoundException, ConsumableEndedException {
         currentConsumable.setRating(rating);
         printer.displayTextWithNewLine("edited successfully");
     }
@@ -191,7 +217,7 @@ public class ConsumableController {
         printer.displayTextWithNewLine("edited successfully");
     }
 
-    public void addConsumableTimeInHour(Date date) {
+    public void addConsumableTimeInHour(Date date) throws ConsumableEndedException, NegativeValueException {
         if (consumptionTimeInHour == null)
             return;
         currentConsumable.addConsumptionTimeInHoursWithDay(consumptionTimeInHour, date);
@@ -200,7 +226,7 @@ public class ConsumableController {
 
 
 
-    public void createConsumable() throws ParseException {
+    public void createConsumable() throws ParseException, ConsumableEndedException, NegativeValueException {
         String consumableType = "";
         if (currentConsumableTypeIndex == BOOK) {
             model.createBook(name, rating, startingDate, endingDate, consumptionTimeInHour);
@@ -239,7 +265,6 @@ public class ConsumableController {
     }
 
     public static void main(String[] args) {
-        System.out.println(Float.parseFloat("8"));
         ConsumableModel model = new ConsumableModel();
         ConsolePrinter printer = new ConsolePrinter();
         ConsumableController controller = new ConsumableController(model, printer);
@@ -248,6 +273,8 @@ public class ConsumableController {
 
 
     public void startApplication() {
+        printer.addGap();
+        printer.printInstructions();
         printer.addGap();
         Scanner scanner = new Scanner(System.in);
         String input = "";

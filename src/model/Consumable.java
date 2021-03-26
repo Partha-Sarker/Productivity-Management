@@ -18,15 +18,15 @@ public abstract class Consumable {
     private double consumptionTimeInHours = 0;
     int consumptionDays = 0;
 
-    public Consumable(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) {
+    public Consumable(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws NegativeValueException, ConsumableEndedException {
         this.name = name;
         this.rating = rating;
         this.startingDate = startingDate;
-        this.endingDate = endingDate;
         addConsumptionTimeInHours(consumptionTimeInHours);
+        this.endingDate = endingDate;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Float rating) throws ValueBoundException, ConsumableEndedException {
         if (rating > 10 || rating < 0)
             throw new ValueBoundException();
         if (isEnded())
@@ -44,7 +44,7 @@ public abstract class Consumable {
         return consumptionDays;
     }
 
-    public void addConsumptionTimeInHours(double hour) {
+    public void addConsumptionTimeInHours(double hour) throws ConsumableEndedException, NegativeValueException {
         if (isEnded())
             throw new ConsumableEndedException();
         if (hour < 0)
@@ -58,9 +58,24 @@ public abstract class Consumable {
         return consumptionTimeInHours;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public String getStartingDate() {
+        return new SimpleDateFormat("yyyy-dd-mm").format(startingDate);
+    }
+
+    public String getEndingDate() {
+        return new SimpleDateFormat("yyyy-dd-mm").format(endingDate);
+    }
+
     public abstract void addToTotalConsumptionTimeInHours(double hour);
-    public abstract void addConsumptionTimeInHoursWithDay(double hour, Date day);
-    public abstract double getTotalConsumptionTimeInHours();
+    public abstract void addConsumptionTimeInHoursWithDay(double hour, Date day) throws NegativeValueException, ConsumableEndedException;
 
 
     private boolean isEnded() {
@@ -72,20 +87,19 @@ public abstract class Consumable {
     @Override
     public String toString() {
         StringBuilder finalString = new StringBuilder(name);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm");
         if (rating != null) {
             finalString.append(", rating: ");
             finalString.append(rating);
         }
         if (startingDate != null) {
             finalString.append(", startingDate: ");
-            finalString.append(dateFormat.format(startingDate));
+            finalString.append(getStartingDate());
         }
         if (endingDate != null) {
             finalString.append(", endingDate: ");
-            finalString.append(dateFormat.format(endingDate));
+            finalString.append(getEndingDate());
         }
-        if (getTotalConsumptionTimeInHours() != 0) {
+        if (getConsumptionTimeInHours() != 0) {
             finalString.append(", totalConsumptionTimeInHours: ");
             finalString.append(getConsumptionTimeInHours());
         }

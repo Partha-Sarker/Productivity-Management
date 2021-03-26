@@ -1,5 +1,8 @@
 package controller;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+
 import java.text.ParseException;
 
 public class CreateStateConsumptionTime implements InputState{
@@ -33,7 +36,11 @@ public class CreateStateConsumptionTime implements InputState{
         try {
             controller.createConsumable();
             controller.setCurrentState(controller.getHomeState());
-        } catch (ParseException e) {};
+        } catch (ParseException e) {} catch (ConsumableEndedException e) {
+            e.printStackTrace();
+        } catch (NegativeValueException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

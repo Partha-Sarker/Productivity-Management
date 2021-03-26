@@ -29,9 +29,16 @@ public class HomeState implements InputState{
 
     @Override
     public void processInput(String input) {
+        if (input.equals("back")) {
+            goBack();
+            return;
+        }
         if (input.equals(""))
             return;
-        int command = Integer.parseInt(input);
+        int command;
+        try {
+            command = Integer.parseInt(input);
+        } catch (Exception e) {return;}
         switch (command) {
             case 1:
                 controller.setCurrentState(controller.getCreatingState());
@@ -42,12 +49,15 @@ public class HomeState implements InputState{
             case 3:
                 controller.setCurrentState(controller.getDeleteState());
                 break;
+            case 4:
+                controller.setCurrentState(controller.getViewingState());
+                break;
         }
     }
 
     @Override
     public void goBack() {
-
+        return;
     }
 
     @Override

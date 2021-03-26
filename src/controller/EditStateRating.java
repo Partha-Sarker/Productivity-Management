@@ -24,10 +24,12 @@ public class EditStateRating implements InputState{
 
     @Override
     public void processInput(String input) {
-        if (input.equals(""))
-            controller.setConsumableRating(null);
-        else
-            controller.setConsumableRating(Float.parseFloat(input));
+        try {
+            if (input.equals(""))
+                controller.setConsumableRating(null);
+            else
+                controller.setConsumableRating(Float.parseFloat(input));
+        } catch (Exception e) {return;}
         controller.setCurrentState(controller.getEditParameterState());
     }
 

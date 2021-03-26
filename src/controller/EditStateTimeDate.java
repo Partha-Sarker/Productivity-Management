@@ -1,5 +1,8 @@
 package controller;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,11 +30,22 @@ public class EditStateTimeDate implements InputState{
 
     @Override
     public void processInput(String input) {
+        if (input != null && input.equals("back")) {
+            goBack();
+            return;
+        }
+
         try {
             Date date = new SimpleDateFormat("yyyy-mm-dd").parse(input);
             controller.addConsumableTimeInHour(date);
         } catch (Exception e) {
-            controller.addConsumableTimeInHour(null);
+            try {
+                controller.addConsumableTimeInHour(null);
+            } catch (ConsumableEndedException consumableEndedException) {
+                consumableEndedException.printStackTrace();
+            } catch (NegativeValueException negativeValueException) {
+                negativeValueException.printStackTrace();
+            }
         }
         controller.setCurrentState(controller.getEditParameterState());
     }

@@ -1,5 +1,8 @@
 package model;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,15 +39,15 @@ public class ConsumableModel {
         return movieList;
     }
 
-    public void createBook(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
+    public void createBook(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException, NegativeValueException, ConsumableEndedException {
         bookList.add(new Book(name, rating, startingDate, endingDate, consumptionTimeInHours));
     }
 
-    public void createSeries(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
+    public void createSeries(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException, NegativeValueException, ConsumableEndedException {
         seriesList.add(new Series(name, rating, startingDate, endingDate, consumptionTimeInHours));
     }
 
-    public void createMovie(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException {
+    public void createMovie(String name, Float rating, Date startingDate, Date endingDate, double consumptionTimeInHours) throws ParseException, NegativeValueException, ConsumableEndedException {
         movieList.add(new Movie(name, rating, startingDate, endingDate, consumptionTimeInHours));
     }
 
@@ -58,5 +61,29 @@ public class ConsumableModel {
 
     public void deleteSeries(int index) {
         seriesList.remove(index);
+    }
+
+    public int getBookConsumeDays() {
+        return Book.consumptionMap.keySet().size();
+    }
+
+    public int getSeriesConsumeDays() {
+        return Series.consumptionMap.keySet().size();
+    }
+
+    public int getMovieConsumeDays() {
+        return Movie.consumptionMap.keySet().size();
+    }
+
+    public double getBookConsumeHour() {
+        return Book.totalConsumptionInHour;
+    }
+
+    public double getMovieConsumeHour() {
+        return Movie.totalConsumptionInHour;
+    }
+
+    public double getSeriesConsumeHour() {
+        return Series.totalConsumptionInHour;
     }
 }

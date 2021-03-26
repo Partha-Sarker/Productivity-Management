@@ -21,7 +21,7 @@ public class EditState implements InputState {
 
     @Override
     public String getInputText() {
-        return "Enter type number: ";
+        return "Enter number: ";
     }
 
     @Override
