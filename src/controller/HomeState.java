@@ -52,6 +52,8 @@ public class HomeState implements InputState{
             case 4:
                 controller.setCurrentState(controller.getViewingState());
                 break;
+            case 5:
+                controller.setCurrentState(controller.getOverallInfoState());
         }
     }
 

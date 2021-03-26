@@ -20,6 +20,7 @@ public class ConsumableController {
     private InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
     private InputState deleteState, deleteListState;
     private InputState viewingState, viewingListState, viewingConsumableState;
+    private InputState overallInfoState;
 
     private String name;
     private Date startingDate, endingDate;
@@ -53,6 +54,7 @@ public class ConsumableController {
         viewingState = new ViewingState(this);
         viewingListState = new ViewingListState(this);
         viewingConsumableState = new ViewingConsumableState(this);
+        overallInfoState = new OverallInfoState(this);
         currentState = homeState;
     }
 
@@ -160,6 +162,10 @@ public class ConsumableController {
 
     public InputState getViewingConsumableState() {
         return viewingConsumableState;
+    }
+
+    public InputState getOverallInfoState() {
+        return overallInfoState;
     }
 
     // separator

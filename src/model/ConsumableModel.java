@@ -4,9 +4,7 @@ import customexceptions.ConsumableEndedException;
 import customexceptions.NegativeValueException;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ConsumableModel {
     private List<Consumable> bookList = new ArrayList<>();
@@ -86,4 +84,79 @@ public class ConsumableModel {
     public double getSeriesConsumeHour() {
         return Series.totalConsumptionInHour;
     }
+
+    public double getOverallConsumeHour() {
+        return Book.totalConsumptionInHour + Movie.totalConsumptionInHour + Series.totalConsumptionInHour;
+    }
+
+    public int getOverallConsumptionDays() {
+        Set<Date> uniqueDays = new HashSet<>();
+        uniqueDays.addAll(Book.consumptionMap.keySet());
+        uniqueDays.addAll(Movie.consumptionMap.keySet());
+        uniqueDays.addAll(Series.consumptionMap.keySet());
+        return uniqueDays.size();
+    }
+
+    public float getAverageBookRating() {
+        float sum = 0;
+        int count = 0;
+        for (Consumable book : bookList) {
+            if (book.getRating() == null)
+                continue;
+            sum += book.getRating();
+            count++;
+        }
+        if (sum == 0)
+            return 0;
+        return sum / (float) count;
+    }
+
+    public float getAverageMovieRating() {
+        float sum = 0;
+        int count = 0;
+        for (Consumable movie : movieList) {
+            if (movie.getRating() == null)
+                continue;
+            sum += movie.getRating();
+            count++;
+        }
+        if (sum == 0)
+            return 0;
+        return sum / (float) count;
+    }
+
+    public float getAverageSeriesRating() {
+        float sum = 0;
+        int count = 0;
+        for (Consumable series : seriesList) {
+            if (series.getRating() == null)
+                continue;
+            sum += series.getRating();
+            count++;
+        }
+        if (sum == 0)
+            return 0;
+        return sum / (float) count;
+    }
+
+    public float getAverageConsumableRating() {
+        return (getAverageBookRating() + getAverageSeriesRating() + getAverageMovieRating()) / 3f;
+    }
+
+    public int getBookCount() {
+        return bookList.size();
+    }
+
+    public int getMovieCount() {
+        return movieList.size();
+    }
+
+    public int getSeriesCount() {
+        return seriesList.size();
+    }
+
+    public int getConsumableCount() {
+        return getBookCount() + getMovieCount() + getSeriesCount();
+    }
+
 }
