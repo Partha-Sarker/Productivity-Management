@@ -27,17 +27,12 @@ public class EditState implements InputState {
     @Override
     public void processInput(String input) {
         int index = Integer.parseInt(input);
-        controller.setCurrentConsumableIndex(index);
+        controller.setCurrentConsumableTypeIndex(index);
         controller.setCurrentState(controller.getEditListState());
     }
 
     @Override
     public void goBack() {
-
-    }
-
-    @Override
-    public void goHome() {
 
     }
 

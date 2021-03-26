@@ -6,6 +6,5 @@ public interface InputState {
     String getInputText();
     void processInput(String input);
     void goBack();
-    void goHome();
     boolean shouldAddGap();
 }

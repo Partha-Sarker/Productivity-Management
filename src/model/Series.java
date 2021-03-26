@@ -38,6 +38,6 @@ public class Series extends Consumable {
 
     @Override
     public String toString() {
-        return "model.Series: " + super.toString();
+        return "Series: " + super.toString();
     }
 }

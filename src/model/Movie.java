@@ -38,6 +38,6 @@ public class Movie extends Consumable {
 
     @Override
     public String toString() {
-        return "model.Movie: " + super.toString();
+        return "Movie: " + super.toString();
     }
 }

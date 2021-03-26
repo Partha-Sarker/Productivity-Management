@@ -1,18 +1,19 @@
 package controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateStateStartingDate implements InputState{
+public class EditStateEndingDate implements InputState{
     private ConsumableController controller;
 
-    public CreateStateStartingDate(ConsumableController controller) {
+    public EditStateEndingDate(ConsumableController controller) {
         this.controller = controller;
     }
 
     @Override
     public String getHeaderInfo() {
-        return "";
+        return "Enter the new date";
     }
 
     @Override
@@ -22,22 +23,22 @@ public class CreateStateStartingDate implements InputState{
 
     @Override
     public String getInputText() {
-        return "starting date(yyyy-mm-dd): ";
+        return "ending date(yyyy-mm-dd): ";
     }
 
     @Override
     public void processInput(String input) {
         if (input.equals(""))
-            controller.setStartingDate(null);
+            controller.setConsumableEndingDate(null);
         else {
             try {
-                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(input);
-                controller.setStartingDate(date);
-            } catch (Exception e) {
-                controller.setStartingDate(null);
+                Date endingDate = new SimpleDateFormat("yyyy-mm-dd").parse(input);
+                controller.setConsumableEndingDate(endingDate);
+                controller.setCurrentState(controller.getEditParameterState());
+            } catch (ParseException p) {
+                controller.setConsumableEndingDate(null);
             }
         }
-        controller.setCurrentState(controller.getCreateStateEndingDate());
     }
 
     @Override

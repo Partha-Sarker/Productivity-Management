@@ -38,6 +38,6 @@ public class Book extends Consumable {
 
     @Override
     public String toString() {
-        return "model.Book: " + super.toString();
+        return "Book: " + super.toString();
     }
 }

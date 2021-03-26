@@ -37,11 +37,6 @@ public class CreateStateRating implements InputState{
     }
 
     @Override
-    public void goHome() {
-
-    }
-
-    @Override
     public boolean shouldAddGap() {
         return false;
     }

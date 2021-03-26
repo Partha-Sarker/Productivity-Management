@@ -14,15 +14,15 @@ public class ConsumableController {
     private ConsumableModel model;
     private InputState currentState, homeState;
     private InputState creatingState, createStateName, createStateRating, createStateStartingDate, createStateEndingDate, createStateConsumptionTime;
-    private InputState editState, editListState, editParameterState, editRatingState, addTimeState, editEndingDateState;
+    private InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
 
     private String name;
     private Date startingDate, endingDate;
     private Float rating;
-    private double consumptionTimeInHour;
+    private Double consumptionTimeInHour;
 
     private static final int BOOK = 1, MOVIE = 2, SERIES = 3, ALL = 4;
-    private int currentConsumableIndex = 1;
+    private int currentConsumableTypeIndex = 1;
     private Consumable currentConsumable;
 
 
@@ -39,31 +39,28 @@ public class ConsumableController {
         editState = new EditState(this);
         editListState = new EditListState(this);
         editParameterState = new EditParameterState(this);
-//        editRatingState = new EditRatingState(this);
-//        addTimeState = new AddTimeState(this);
-//        editEndingDateState = new EditEndingDateState(this);
+        editStateRating = new EditStateRating(this);
+        editStateTime = new EditStateTime(this);
+        editStateTimeDate = new EditStateTimeDate(this);
+        editStateEndingDate = new EditStateEndingDate(this);
         currentState = homeState;
     }
 
 
-    public int getCurrentConsumableIndex() {
-        return currentConsumableIndex;
-    }
-
     public String getConsumableType() {
-        if (currentConsumableIndex == 1)
+        if (currentConsumableTypeIndex == 1)
             return "Book";
-        if (currentConsumableIndex == 2)
+        if (currentConsumableTypeIndex == 2)
             return "Movie";
-        if (currentConsumableIndex == 3)
+        if (currentConsumableTypeIndex == 3)
             return "Series";
         return "garbage";
     }
 
     public List<Consumable> getConsumableList() {
-        if (currentConsumableIndex == BOOK)
+        if (currentConsumableTypeIndex == BOOK)
             return model.getBookList();
-        if (currentConsumableIndex == MOVIE)
+        if (currentConsumableTypeIndex == MOVIE)
             return model.getMoviesList();
         return model.getSeriesList();
     }
@@ -108,16 +105,20 @@ public class ConsumableController {
         return editParameterState;
     }
 
-    public InputState getEditRatingState() {
-        return editRatingState;
+    public InputState getEditStateRating() {
+        return editStateRating;
     }
 
-    public InputState getAddTimeState() {
-        return addTimeState;
+    public InputState getEditStateTime() {
+        return editStateTime;
     }
 
-    public InputState getEditEndingDateState() {
-        return editEndingDateState;
+    public InputState getEditStateEndingDate() {
+        return editStateEndingDate;
+    }
+
+    public InputState getEditStateTimeDate() {
+        return editStateTimeDate;
     }
 
 
@@ -142,39 +143,60 @@ public class ConsumableController {
         this.rating = rating;
     }
 
-    public void setConsumptionTimeInHour(double consumptionTimeInHour) {
+    public void setConsumptionTimeInHour(Double consumptionTimeInHour) {
         this.consumptionTimeInHour = consumptionTimeInHour;
     }
 
-    public void setCurrentConsumableIndex(int currentConsumableIndex) {
-        this.currentConsumableIndex = currentConsumableIndex;
+    public void setCurrentConsumableTypeIndex(int currentConsumableTypeIndex) {
+        this.currentConsumableTypeIndex = currentConsumableTypeIndex;
     }
 
+//    public void setCurrentConsumableIndexInList(int currentConsumableIndexInList) {
+//        this.currentConsumableIndexInList = currentConsumableIndexInList;
+//    }
+
     public void setCurrentConsumable(int index) {
-        if (currentConsumableIndex == MOVIE) {
+        if (currentConsumableTypeIndex == MOVIE) {
             currentConsumable = model.getMoviesList().get(index);
         }
-        else if (currentConsumableIndex == BOOK) {
+        else if (currentConsumableTypeIndex == BOOK) {
             currentConsumable = model.getBookList().get(index);
         }
-        else if (currentConsumableIndex == SERIES) {
+        else if (currentConsumableTypeIndex == SERIES) {
             currentConsumable = model.getSeriesList().get(index);
         }
+    }
+
+    public void setConsumableRating(Float rating) {
+        currentConsumable.setRating(rating);
+        printer.displayTextWithNewLine("edited successfully");
+    }
+
+    public void setConsumableEndingDate(Date date) {
+        currentConsumable.setEndingDate(date);
+        printer.displayTextWithNewLine("edited successfully");
+    }
+
+    public void addConsumableTimeInHour(Date date) {
+        if (consumptionTimeInHour == null)
+            return;
+        currentConsumable.addConsumptionTimeInHoursWithDay(consumptionTimeInHour, date);
+        printer.displayTextWithNewLine("edited successfully");
     }
 
 
 
     public void createConsumable() throws ParseException {
         String consumableType = "";
-        if (currentConsumableIndex == BOOK) {
+        if (currentConsumableTypeIndex == BOOK) {
             model.createBook(name, rating, startingDate, endingDate, consumptionTimeInHour);
             consumableType = "Book";
         }
-        else if (currentConsumableIndex == MOVIE) {
+        else if (currentConsumableTypeIndex == MOVIE) {
             model.createMovie(name, rating, startingDate, endingDate, consumptionTimeInHour);
             consumableType = "Movie";
         }
-        else if (currentConsumableIndex == SERIES) {
+        else if (currentConsumableTypeIndex == SERIES) {
             model.createSeries(name, rating, startingDate, endingDate, consumptionTimeInHour);
             consumableType = "Series";
         }
@@ -183,6 +205,7 @@ public class ConsumableController {
     }
 
     public static void main(String[] args) {
+        System.out.println(Float.parseFloat("8"));
         ConsumableModel model = new ConsumableModel();
         ConsolePrinter printer = new ConsolePrinter();
         ConsumableController controller = new ConsumableController(model, printer);
@@ -217,6 +240,12 @@ public class ConsumableController {
             input = scanner.nextLine();
             if (currentState.shouldAddGap())
                 printer.addGap();
+
+            if (input.equals("home")) {
+                currentState = homeState;
+                continue;
+            }
+
             currentState.processInput(input);
         }
     }

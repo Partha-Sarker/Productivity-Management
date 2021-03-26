@@ -1,15 +1,15 @@
 package controller;
 
-public class CreateStateName implements InputState{
+public class EditStateRating implements InputState{
     private ConsumableController controller;
 
-    public CreateStateName(ConsumableController controller) {
+    public EditStateRating(ConsumableController controller) {
         this.controller = controller;
     }
 
     @Override
     public String getHeaderInfo() {
-        return "Creating new " + controller.getConsumableType();
+        return "Enter the new rating";
     }
 
     @Override
@@ -19,13 +19,16 @@ public class CreateStateName implements InputState{
 
     @Override
     public String getInputText() {
-        return "name: ";
+        return "new rating(0-10): ";
     }
 
     @Override
     public void processInput(String input) {
-        controller.setName(input);
-        controller.setCurrentState(controller.getCreateStateRating());
+        if (input.equals(""))
+            controller.setConsumableRating(null);
+        else
+            controller.setConsumableRating(Float.parseFloat(input));
+        controller.setCurrentState(controller.getEditParameterState());
     }
 
     @Override

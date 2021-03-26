@@ -33,21 +33,18 @@ public abstract class Consumable {
         this.rating = rating;
     }
 
-    private void setStartingDate(String startingDate) throws ParseException{
-        if (isEnded())
-            throw new ConsumableEndedException();
-        if (startingDate == null || startingDate.equals(""))
-            return;
-        this.startingDate = new SimpleDateFormat("YYYY-MM-DD").parse(startingDate);
-    }
+//    private void setStartingDate(String startingDate) throws ParseException{
+//        if (isEnded())
+//            throw new ConsumableEndedException();
+//        if (startingDate == null || startingDate.equals(""))
+//            return;
+//        this.startingDate = new SimpleDateFormat("YYYY-MM-DD").parse(startingDate);
+//    }
 
-    public void setEndingDate(String endingDate) throws ParseException{
-        if (endingDate == null || endingDate.equals(""))
+    public void setEndingDate(Date endingDate) {
+        if (endingDate == null)
             return;
-        Date newDate = new SimpleDateFormat("YYYY-MM-DD").parse(endingDate);
-        if (startingDate != null && newDate.before(startingDate))
-            throw new DateException();
-        this.endingDate = newDate;
+        this.endingDate = endingDate;
     }
 
     public void addConsumptionTimeInHours(double hour) {
@@ -60,6 +57,9 @@ public abstract class Consumable {
         addToTotalConsumptionTimeInHours(hour);
     }
 
+    public double getConsumptionTimeInHours() {
+        return consumptionTimeInHours;
+    }
 
     public abstract void addToTotalConsumptionTimeInHours(double hour);
     public abstract void addConsumptionTimeInHoursWithDay(double hour, Date day);
@@ -88,8 +88,10 @@ public abstract class Consumable {
             finalString.append(", endingDate: ");
             finalString.append(dateFormat.format(endingDate));
         }
-        finalString.append(", totalConsumptionTimeInHours: ");
-        finalString.append(getTotalConsumptionTimeInHours());
+        if (getTotalConsumptionTimeInHours() != 0) {
+            finalString.append(", totalConsumptionTimeInHours: ");
+            finalString.append(getConsumptionTimeInHours());
+        }
         return finalString.toString();
     }
 }

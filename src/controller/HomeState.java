@@ -48,11 +48,6 @@ public class HomeState implements InputState{
     }
 
     @Override
-    public void goHome() {
-
-    }
-
-    @Override
     public boolean shouldAddGap() {
         return true;
     }

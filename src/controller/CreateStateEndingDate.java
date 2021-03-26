@@ -28,13 +28,13 @@ public class CreateStateEndingDate implements InputState{
     @Override
     public void processInput(String input) {
         if (input.equals(""))
-            controller.setRating(null);
+            controller.setEndingDate(null);
         else {
             try {
                 Date date = new SimpleDateFormat("yyyy-mm-dd").parse(input);
-                controller.setStartingDate(date);
+                controller.setEndingDate(date);
             } catch (Exception e) {
-                controller.setRating(null);
+                controller.setEndingDate(null);
             }
         }
         controller.setCurrentState(controller.getCreateStateConsumptionTime());
@@ -42,11 +42,6 @@ public class CreateStateEndingDate implements InputState{
 
     @Override
     public void goBack() {
-
-    }
-
-    @Override
-    public void goHome() {
 
     }
 

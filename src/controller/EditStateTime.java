@@ -1,17 +1,15 @@
 package controller;
 
-import java.text.ParseException;
-
-public class CreateStateConsumptionTime implements InputState{
+public class EditStateTime implements InputState{
     private ConsumableController controller;
 
-    public CreateStateConsumptionTime(ConsumableController controller) {
+    public EditStateTime(ConsumableController controller) {
         this.controller = controller;
     }
 
     @Override
     public String getHeaderInfo() {
-        return "";
+        return "Add consumption time in hours";
     }
 
     @Override
@@ -21,19 +19,16 @@ public class CreateStateConsumptionTime implements InputState{
 
     @Override
     public String getInputText() {
-        return "consumption time: ";
+        return "time(hour): ";
     }
 
     @Override
     public void processInput(String input) {
         if (input.equals(""))
-            controller.setConsumptionTimeInHour(0d);
+            controller.setConsumptionTimeInHour(null);
         else
             controller.setConsumptionTimeInHour(Double.parseDouble(input));
-        try {
-            controller.createConsumable();
-            controller.setCurrentState(controller.getHomeState());
-        } catch (ParseException e) {};
+        controller.setCurrentState(controller.getEditStateTimeDate());
     }
 
     @Override
@@ -43,6 +38,6 @@ public class CreateStateConsumptionTime implements InputState{
 
     @Override
     public boolean shouldAddGap() {
-        return true;
+        return false;
     }
 }
