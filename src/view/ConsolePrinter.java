@@ -1,20 +1,14 @@
 package view;
 
+import java.util.Random;
+
 public class ConsolePrinter {
     private int dashCount = 100, gapNewLineCount = 2, defaultColWidth = 30;
     private char lineChar = '-';
 
     public static void main(String[] args) {
-//        int col1Width = 20, col2Width = 10, col3Width = 15;
-//        String leftAlignFormat = "| %-" + col1Width + "s | %-" + col2Width + "d |%n";
-//        for (int i = 0; i < 5; i++) {
-//            System.out.format(leftAlignFormat, "some data" + i, i * i);
-//        }
-//        printTable(5, 10, 15);
-//        ConsolePrinter p = new ConsolePrinter();
-//        p.printUpDownBoundary(3);
-//        p.printValueInTable("2");
-//        p.printValueInTable(5);
+//        int rand = new Random().nextInt(2);
+//        System.out.println(rand);
     }
 
     public void printUpDownBoundary(int cols) {

@@ -218,7 +218,7 @@ public class ConsumableController {
         printer.displayTextWithNewLine("edited successfully");
     }
 
-    public void setConsumableEndingDate(Date date) {
+    public void setConsumableEndingDate(Date date) throws ConsumableEndedException {
         currentConsumable.setEndingDate(date);
         printer.displayTextWithNewLine("edited successfully");
     }

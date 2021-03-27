@@ -4,6 +4,7 @@ import customexceptions.ConsumableEndedException;
 import customexceptions.NegativeValueException;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ConsumableModel {
@@ -13,16 +14,68 @@ public class ConsumableModel {
 
     public ConsumableModel() {
         try {
-            bookList.add(new Book("book1", null, null, null, 0));
-            bookList.add(new Book("book2", null, null, null, 0));
-            bookList.add(new Book("book3", null, null, null, 0));
-            movieList.add(new Movie("movie1", null, null, null, 0));
-            movieList.add(new Movie("movie2", null, null, null, 0));
-            movieList.add(new Movie("movie3", null, null, null, 0));
-            seriesList.add(new Series("series1", null, null, null, 0));
-            seriesList.add(new Series("series2", null, null, null, 0));
-            seriesList.add(new Series("series3", null, null, null, 0));
+            bookList.add(new Book("book1", 5.4f, getDateFromString("2018-3-6"), null, 15));
+            bookList.add(new Book("book2", 3.5f, getDateFromString("2018-2-6"), null, 21));
+            bookList.add(new Book("book3", 9.8f, getDateFromString("2018-3-6"), null, 21));
+            movieList.add(new Movie("movie1", 4.5f, getDateFromString("2018-11-26"), null, 21));
+            movieList.add(new Movie("movie2", 3.3f, getDateFromString("2018-3-16"), null, 21));
+            movieList.add(new Movie("movie3", null, null, null, 21));
+            seriesList.add(new Series("series1", 8f, getDateFromString("2018-6-4"), null, 21));
+            seriesList.add(new Series("series2", 3f, getDateFromString("2018-2-3"), null, 21));
+            seriesList.add(new Series("series3", 7f, getDateFromString("2018-2-21"), null, 21));
+            for (Consumable book : bookList) {
+                Random rand = new Random();
+                int randomDays = rand.nextInt(5) + 1;
+                for (int i = 0; i < randomDays; i++) {
+                    String day = String.valueOf(rand.nextInt(25) + 1);
+                    Date randomDate = getDateFromString("2019-1-" + day);
+                    int randomWatchHour = rand.nextInt(20) + 1;
+                    book.addConsumptionTimeInHoursWithDay(randomWatchHour, randomDate);
+                }
+                String day = String.valueOf(rand.nextInt(25) + 1);
+                Date randomDate = getDateFromString("2020-3-" + day);
+                book.setEndingDate(randomDate);
+            }
+
+            for (Consumable movie : movieList) {
+                Random rand = new Random();
+                int randomDays = rand.nextInt(5) + 1;
+                for (int i = 0; i < randomDays; i++) {
+                    String day = String.valueOf(rand.nextInt(25) + 1);
+                    Date randomDate = getDateFromString("2019-1-" + day);
+                    int randomWatchHour = rand.nextInt(20) + 1;
+                    movie.addConsumptionTimeInHoursWithDay(randomWatchHour, randomDate);
+                }
+
+                String day = String.valueOf(rand.nextInt(25) + 1);
+                Date randomDate = getDateFromString("2020-3-" + day);
+                movie.setEndingDate(randomDate);
+            }
+
+            for (Consumable series : seriesList) {
+                Random rand = new Random();
+                int randomDays = rand.nextInt(5) + 1;
+                for (int i = 0; i < randomDays; i++) {
+                    String day = String.valueOf(rand.nextInt(25) + 1);
+                    Date randomDate = getDateFromString("2019-1-" + day);
+                    int randomWatchHour = rand.nextInt(20) + 1;
+                    series.addConsumptionTimeInHoursWithDay(randomWatchHour, randomDate);
+                }
+
+                String day = String.valueOf(rand.nextInt(25) + 1);
+                Date randomDate = getDateFromString("2020-3-" + day);
+                series.setEndingDate(randomDate);
+            }
+
+            bookList.add(new Book("sherlock holmes", null, null, null, 20));
         } catch (Exception e) {}
+
+
+//        getDateFromString("2019-3-6")
+//        getDateFromString("2018-3-9")
+//        getDateFromString("2018-4-6")
+//        getDateFromString("2018-6-6")
+//        getDateFromString("2020-6-6")
     }
 
     public List<Consumable> getBookList() {
@@ -157,6 +210,10 @@ public class ConsumableModel {
 
     public int getConsumableCount() {
         return getBookCount() + getMovieCount() + getSeriesCount();
+    }
+
+    private Date getDateFromString(String date) throws ParseException {
+        return new SimpleDateFormat("yyyy-mm-dd").parse(date);
     }
 
 }

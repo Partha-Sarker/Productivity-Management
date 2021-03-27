@@ -1,5 +1,8 @@
 package controller;
 
+import customexceptions.ConsumableEndedException;
+import customexceptions.NegativeValueException;
+
 public class EditStateRating implements InputState{
     private ConsumableController controller;
 
@@ -29,7 +32,9 @@ public class EditStateRating implements InputState{
                 controller.setConsumableRating(null);
             else
                 controller.setConsumableRating(Float.parseFloat(input));
-        } catch (Exception e) {return;}
+        } catch (ConsumableEndedException consumableEndedException) {
+            consumableEndedException.printStackTrace();
+        } catch (Exception e) { }
         controller.setCurrentState(controller.getEditParameterState());
     }
 

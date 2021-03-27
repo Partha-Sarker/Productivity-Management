@@ -24,7 +24,7 @@ public class CreateStateConsumptionTime implements InputState{
 
     @Override
     public String getInputText() {
-        return "consumption time: ";
+        return "consumption time(hour): ";
     }
 
     @Override

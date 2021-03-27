@@ -26,8 +26,9 @@ public class CreateStateRating implements InputState{
     public void processInput(String input) {
         try {
             controller.setRating(Float.parseFloat(input));
-            controller.setCurrentState(controller.getCreateStateStartingDate());
         } catch (Exception e) {};
+        controller.setCurrentState(controller.getCreateStateStartingDate());
+
     }
 
     @Override

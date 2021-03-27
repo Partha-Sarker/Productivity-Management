@@ -1,5 +1,7 @@
 package controller;
 
+import customexceptions.ConsumableEndedException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,22 +30,21 @@ public class EditStateEndingDate implements InputState{
 
     @Override
     public void processInput(String input) {
-        if (input.equals(""))
-            controller.setConsumableEndingDate(null);
-        else {
+
             try {
                 Date endingDate = new SimpleDateFormat("yyyy-mm-dd").parse(input);
                 controller.setConsumableEndingDate(endingDate);
                 controller.setCurrentState(controller.getEditParameterState());
-            } catch (ParseException p) {
-                controller.setConsumableEndingDate(null);
-            }
-        }
+            } catch (ConsumableEndedException p) {
+                p.printStackTrace();
+                goBack();
+                return;
+            } catch (ParseException p) {}
     }
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getEditParameterState());
     }
 
     @Override

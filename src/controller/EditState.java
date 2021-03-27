@@ -9,7 +9,7 @@ public class EditState implements InputState {
 
     @Override
     public String getHeaderInfo() {
-        return "Select consumable type";
+        return "Select consumable type to edit";
     }
 
     @Override

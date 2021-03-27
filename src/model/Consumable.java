@@ -34,9 +34,11 @@ public abstract class Consumable {
         this.rating = rating;
     }
 
-    public void setEndingDate(Date endingDate) {
+    public void setEndingDate(Date endingDate) throws ConsumableEndedException {
         if (endingDate == null)
             return;
+        if (this.endingDate != null)
+            throw new ConsumableEndedException();
         this.endingDate = endingDate;
     }
 
