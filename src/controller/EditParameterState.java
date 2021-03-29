@@ -28,17 +28,12 @@ public class EditParameterState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
         int index;
         try {
             index = Integer.parseInt(input);
         } catch (Exception e) {
             return;
         }
-//        controller.setCurrentConsumableTypeIndex(index);
         switch (index) {
             case 1:
                 controller.setCurrentState(controller.getEditStateRating());

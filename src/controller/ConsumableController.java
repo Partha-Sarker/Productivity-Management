@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ConsumableController {
-    private ConsolePrinter printer;
-    private ConsumableModel model;
-    private InputState currentState, homeState;
-    private InputState creatingState, createStateName, createStateRating, createStateStartingDate, createStateEndingDate, createStateConsumptionTime;
-    private InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
-    private InputState deleteState, deleteListState;
-    private InputState viewingState, viewingListState, viewingConsumableState;
-    private InputState overallInfoState;
+    private final ConsolePrinter printer;
+    private final ConsumableModel model;
+    private InputState currentState;
+    private final InputState homeState;
+    private final InputState creatingState, createStateName, createStateRating, createStateStartingDate, createStateEndingDate, createStateConsumptionTime;
+    private final InputState editState, editListState, editParameterState, editStateRating, editStateTime, editStateEndingDate, editStateTimeDate;
+    private final InputState deleteState, deleteListState;
+    private final InputState viewingState, viewingListState, viewingConsumableState;
+    private final InputState overallInfoState;
 
     private String name;
     private Date startingDate, endingDate;
@@ -311,6 +312,12 @@ public class ConsumableController {
             if (input.equals("home")) {
                 printer.displayNewLine();
                 currentState = homeState;
+                continue;
+            }
+
+            if (input.equals("back")) {
+                printer.displayNewLine();
+                currentState.goBack();
                 continue;
             }
 

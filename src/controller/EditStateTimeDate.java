@@ -30,11 +30,6 @@ public class EditStateTimeDate implements InputState{
 
     @Override
     public void processInput(String input) {
-        if (input != null && input.equals("back")) {
-            goBack();
-            return;
-        }
-
         try {
             Date date = new SimpleDateFormat("yyyy-mm-dd").parse(input);
             controller.addConsumableTimeInHour(date);
@@ -52,7 +47,7 @@ public class EditStateTimeDate implements InputState{
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getEditParameterState());
     }
 
     @Override

@@ -58,9 +58,7 @@ public class HomeState implements InputState{
     }
 
     @Override
-    public void goBack() {
-        return;
-    }
+    public void goBack() { }
 
     @Override
     public boolean shouldAddGap() {

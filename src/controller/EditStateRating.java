@@ -40,7 +40,7 @@ public class EditStateRating implements InputState{
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getEditParameterState());
     }
 
     @Override

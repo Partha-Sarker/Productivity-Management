@@ -28,10 +28,6 @@ public class CreatingState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
         int command;
         try {
             command = Integer.parseInt(input);

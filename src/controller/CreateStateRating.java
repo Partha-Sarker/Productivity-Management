@@ -33,7 +33,7 @@ public class CreateStateRating implements InputState{
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getHomeState());
     }
 
     @Override

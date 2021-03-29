@@ -36,11 +36,6 @@ public class ViewingListState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
-
         int index = Integer.parseInt(input);
         controller.setCurrentConsumable(index - 1);
         controller.setCurrentState(controller.getViewingConsumableState());
@@ -48,7 +43,7 @@ public class ViewingListState implements InputState {
 
     @Override
     public void goBack() {
-        controller.setCurrentState(controller.getHomeState());
+        controller.setCurrentState(controller.getViewingState());
     }
 
     @Override

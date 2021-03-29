@@ -69,11 +69,19 @@ public abstract class Consumable {
     }
 
     public String getStartingDate() {
-        return new SimpleDateFormat("yyyy-dd-mm").format(startingDate);
+        String date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-dd-mm").format(startingDate);
+        } catch (NullPointerException e) {}
+        return date;
     }
 
     public String getEndingDate() {
-        return new SimpleDateFormat("yyyy-dd-mm").format(endingDate);
+        String date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-dd-mm").format(endingDate);
+        } catch (NullPointerException e) {}
+        return date;
     }
 
     public abstract void addToTotalConsumptionTimeInHours(double hour);

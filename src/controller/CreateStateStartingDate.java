@@ -42,7 +42,7 @@ public class CreateStateStartingDate implements InputState{
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getHomeState());
     }
 
     @Override

@@ -5,8 +5,8 @@ import customexceptions.NegativeValueException;
 
 import java.text.ParseException;
 
-public class CreateStateConsumptionTime implements InputState{
-    private ConsumableController controller;
+public class CreateStateConsumptionTime implements InputState {
+    private final ConsumableController controller;
 
     public CreateStateConsumptionTime(ConsumableController controller) {
         this.controller = controller;
@@ -33,19 +33,25 @@ public class CreateStateConsumptionTime implements InputState{
             controller.setConsumptionTimeInHour(0d);
         else
             controller.setConsumptionTimeInHour(Double.parseDouble(input));
+
         try {
             controller.createConsumable();
             controller.setCurrentState(controller.getHomeState());
-        } catch (ParseException e) {} catch (ConsumableEndedException e) {
+        }
+        catch (ParseException e) {
             e.printStackTrace();
-        } catch (NegativeValueException e) {
+        }
+        catch (ConsumableEndedException e) {
+            e.printStackTrace();
+        }
+        catch (NegativeValueException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getHomeState());
     }
 
     @Override

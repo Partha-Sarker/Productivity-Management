@@ -26,10 +26,6 @@ public class DeleteState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
         int index = Integer.parseInt(input);
         controller.setCurrentConsumableTypeIndex(index);
         controller.setCurrentState(controller.getDeleteListState());

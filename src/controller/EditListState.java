@@ -38,10 +38,6 @@ public class EditListState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
         int index = Integer.parseInt(input);
         controller.setCurrentConsumable(index - 1);
         controller.setCurrentState(controller.getEditParameterState());

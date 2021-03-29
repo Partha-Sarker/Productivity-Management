@@ -3,7 +3,7 @@ This is a java console application to prototype a productivity management tool. 
 
 # Instructions
 - Type "home" and enter to go back to home state.
-- Type "back" and enter to go back one state.(doesn't work for every state)
+- Type "back" and enter to go back one state.
 - Just type enter to input empty value.
 - The app will crash if the input data type doesn't match the desired data type or if the input the input value doesn't meet the desired condition.
 

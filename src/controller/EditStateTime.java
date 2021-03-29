@@ -33,7 +33,7 @@ public class EditStateTime implements InputState{
 
     @Override
     public void goBack() {
-
+        controller.setCurrentState(controller.getEditParameterState());
     }
 
     @Override

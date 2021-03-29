@@ -33,10 +33,7 @@ public class ViewingConsumableState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
+
     }
 
     @Override

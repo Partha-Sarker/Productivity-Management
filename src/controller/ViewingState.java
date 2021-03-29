@@ -9,15 +9,16 @@ public class ViewingState implements InputState {
 
     @Override
     public String getHeaderInfo() {
-        controller.getPrinter().printTitles("Type Name", "Consumption Days", "Consumption Hours");
+        controller.getPrinter().printTitles("Type Name", "Consumption Days", "Consumption Hours", "Count");
         return "";
     }
 
     @Override
     public String getStateInfo() {
-        controller.getPrinter().printValues("1. Book", controller.getModel().getBookConsumeDays(), controller.getModel().getBookConsumeHour());
-        controller.getPrinter().printValues("2. Movie", controller.getModel().getMovieConsumeDays(), controller.getModel().getMovieConsumeHour());
-        controller.getPrinter().printValues("3. Series", controller.getModel().getSeriesConsumeDays(), controller.getModel().getSeriesConsumeHour());
+
+        controller.getPrinter().printValues("1. Book", controller.getModel().getBookConsumeDays(), controller.getModel().getBookConsumeHour(), controller.getModel().getBookCount());
+        controller.getPrinter().printValues("2. Movie", controller.getModel().getMovieConsumeDays(), controller.getModel().getMovieConsumeHour(), controller.getModel().getMovieCount());
+        controller.getPrinter().printValues("3. Series", controller.getModel().getSeriesConsumeDays(), controller.getModel().getSeriesConsumeHour(), controller.getModel().getSeriesCount());
         return "";
     }
 
@@ -29,10 +30,6 @@ public class ViewingState implements InputState {
 
     @Override
     public void processInput(String input) {
-        if (input.equals("back")) {
-            goBack();
-            return;
-        }
 
         int command = Integer.parseInt(input);
         controller.setCurrentConsumableTypeIndex(command);

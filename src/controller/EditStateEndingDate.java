@@ -30,16 +30,15 @@ public class EditStateEndingDate implements InputState{
 
     @Override
     public void processInput(String input) {
-
-            try {
-                Date endingDate = new SimpleDateFormat("yyyy-mm-dd").parse(input);
-                controller.setConsumableEndingDate(endingDate);
-                controller.setCurrentState(controller.getEditParameterState());
-            } catch (ConsumableEndedException p) {
-                p.printStackTrace();
-                goBack();
-                return;
-            } catch (ParseException p) {}
+        try {
+            Date endingDate = new SimpleDateFormat("yyyy-mm-dd").parse(input);
+            controller.setConsumableEndingDate(endingDate);
+            controller.setCurrentState(controller.getEditParameterState());
+        } catch (ConsumableEndedException p) {
+            p.printStackTrace();
+            goBack();
+            return;
+        } catch (ParseException p) {}
     }
 
     @Override
